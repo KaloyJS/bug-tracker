@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Exception;
 
 use App\Helpers\App;
+use App\Helpers\Utility;
 use Throwable, ErrorException;
 
 class ExceptionHandler
@@ -15,8 +16,7 @@ class ExceptionHandler
         $application = new App;
 
         if ($application->isDebugMode()) {
-            echo "Hello";
-            var_dump($exception);
+            Utility::printArr($exception);
         } else {
             echo "This should not have happened, please try again";
         }

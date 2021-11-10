@@ -9,7 +9,7 @@ require_once __DIR__ . '/vendor/autoload.php';
 
 
 set_error_handler([new \App\Exception\ExceptionHandler(), 'handle']);
-
+set_exception_handler([new \App\Exception\ExceptionHandler(), 'handle']);
 
 
 $config = \App\Helpers\Config::getFileContent('yryryeryr');
