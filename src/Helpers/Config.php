@@ -4,8 +4,11 @@ declare(strict_types=1);
 
 namespace App\Helpers;
 
+use App\Exception\NotFoundException;
+
 class Config
 {
+
     public static function get(string $filename, string $key = null)
     {
         $fileContent = self::getFileContent($filename);
@@ -24,8 +27,8 @@ class Config
                 $fileContent = require $path;
             }
         } catch (\Throwable $exception) {
-            throw new \RuntimeException(
-                sprintf('the specified file: %s was not found', $filename)
+            throw new NotFoundException(
+                sprintf('The specified file: %s was not found', $filename), ['not found file', 'data is passed']
             );
         }
         return $fileContent;
