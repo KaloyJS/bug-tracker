@@ -6,23 +6,10 @@ use App\Exception\ExceptionHandler;
 
 require_once __DIR__ . '/vendor/autoload.php';
 
+require_once __DIR__ . '/src/Exception/exception.php';
 
+$logger = new \App\Logger\Logger();
 
-set_error_handler([new \App\Exception\ExceptionHandler(), 'handle']);
-set_exception_handler([new \App\Exception\ExceptionHandler(), 'handle']);
+$logger->log(\App\Logger\LogLevel::EMERGENCY, 'There is an emergency');
 
-
-$config = \App\Helpers\Config::getFileContent('yryryeryr');
-var_dump($config);
-
-$application = new \App\Helpers\App();
-echo $application->getServerTime()->format('Y-m-d H:i:s') . PHP_EOL;
-echo $application->getLogPath() . PHP_EOL;
-echo $application->getEnvironment() . PHP_EOL;
-echo $application->isDebugMode() . PHP_EOL;
-
-if ($application->isRunningFromConsole()) {
-    echo "from console";
-} else {
-    echo "from browser";
-}
+$logger->info('User account created successfully', ['id' => 5]);
