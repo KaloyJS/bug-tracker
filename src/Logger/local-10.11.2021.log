@@ -1,0 +1,4 @@
+2021-11-10 21:59:20 - Level: emergency - Message: There is an emergency - Context: []
+2021-11-10 21:59:20 - Level: info - Message: User account created successfully - Context: {"id":5}
+2021-11-10 21:59:28 - Level: emergency - Message: There is an emergency - Context: []
+2021-11-10 21:59:28 - Level: info - Message: User account created successfully - Context: {"id":5}
