@@ -2,7 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Exceptions;
+namespace App\Exception;
+
+use \App\Exception\BaseException;
 
 class MissingArgumentException extends BaseException
 {
