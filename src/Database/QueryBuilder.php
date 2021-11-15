@@ -4,6 +4,7 @@ namespace App\Database;
 
 use App\Contracts\DatabaseConnectionInterface;
 use App\Exception\NotFoundException;
+use InvalidArgumentException;
 
 class QueryBuilder
 {
@@ -13,7 +14,7 @@ class QueryBuilder
     protected $fields;
     protected $placeholders = [];
     protected $bindings; // name = ? ['terry']
-    protected $operation; //dml data manipulation language - SELECT,UPDATE, INSERT, DELETE
+    protected $operation = self::DML_TYPE_SELECT; //dml data manipulation language - SELECT,UPDATE, INSERT, DELETE    
 
     const OPERATORS = ['=', '>=', '>', '<', '<=', '<>'];
     const PLACEHOLDER = '?';
@@ -22,6 +23,8 @@ class QueryBuilder
     const DML_TYPE_UPDATE = 'UPDATE';
     const DML_TYPE_INSERT = 'INSERT';
     const DML_TYPE_DELETE = 'SELECT';
+
+    use Query;
 
     public function __construct(DatabaseConnectionInterface $connection)
     {
@@ -45,10 +48,11 @@ class QueryBuilder
             }
         }
         $this->parseWhere([$column => $value], $operator);
+        $query = $this->prepare($this->getQuery($this->operation));
         return $this;
     }
 
-    public function parseWhere(array $conditions, string $operator)
+    private function parseWhere(array $conditions, string $operator)
     {
         foreach ($conditions as $column => $value) {
             $this->placeholders[] = sprintf('%s %s %s', $column, $operator, self::PLACEHOLDER);
@@ -56,6 +60,14 @@ class QueryBuilder
         }
         return $this;
     }
+
+    public function select(string $fields = self::COLUMNS)
+    {
+        $this->operation = self::DML_TYPE_SELECT;
+        $this->fields = $fields;
+        return $this;
+    }
+
 
     public function getBindings()
     {

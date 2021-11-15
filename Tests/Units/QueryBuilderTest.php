@@ -23,14 +23,18 @@ class QueryBuilderTest extends TestCase
         parent::setUp();
     }
 
-    public function testBindings()
+    public function testItCanPerformSelectQuery()
     {
-        $query = $this->queryBuilder->where('id', 7)->where('report_type', '>=', '100');
-        self::assertIsArray($query->getPlaceholders());
-        self::assertIsArray($query->getBindings());
+        $results = $this->queryBuilder
+            ->table('reports')
+            ->select('*')
+            ->where('id', 1);
 
-        var_dump($query->getPlaceholders(), $query->getBindings());
+        var_dump($results->query);
         exit();
+
+        self::assertNotNull($results);
+        self::assertSame(1, (int)$results->id);
     }
 
 
@@ -46,16 +50,7 @@ class QueryBuilderTest extends TestCase
         self::assertNotNull($result);
     }
 
-    public function testItCanPerformSelectQuery()
-    {
-        $results = $this->queryBuilder
-            ->table('reports')
-            ->select('*')
-            ->where('id', 1)
-            ->first();
-        self::assertNotNull($results);
-        self::assertSame(1, (int)$results->id);
-    }
+
 
     public function testItCanPerformSelectQueryWithMultipleWhereClause()
     {
