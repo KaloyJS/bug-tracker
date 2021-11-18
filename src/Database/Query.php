@@ -7,7 +7,7 @@ namespace App\Database;
  */
 trait Query
 {
-    public function getQuery(string $type)
+    public function getQuery(string $type) 
     {
         switch ($type) {
             case self::DML_TYPE_SELECT:
