@@ -49,6 +49,7 @@ abstract class QueryBuilder
         }
         $this->parseWhere([$column => $value], $operator);
         $query = $this->prepare($this->getQuery($this->operation));
+        // var_dump($this->getQuery($this->operation));
         $this->statement = $this->execute($query);
         return $this;
     }
@@ -78,10 +79,9 @@ abstract class QueryBuilder
         }
         $query = $this->prepare($this->getQuery(self::DML_TYPE_INSERT));
         $this->statement = $this->execute($query);
-        return $this->statement;
 
-        // return $this->lastInsertedId();
 
+        return $this->lastInsertedId();
     }
 
     public function update(array $data)
@@ -120,6 +120,11 @@ abstract class QueryBuilder
     public function first()
     {
         return $this->count() ? $this->get()[0] : "";
+    }
+
+    public function getConnection()
+    {
+        return $this->connection;
     }
 
     abstract public function get();

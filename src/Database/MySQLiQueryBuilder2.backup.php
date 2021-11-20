@@ -19,23 +19,13 @@ class MySQLiQueryBuilder extends QueryBuilder
         $results = [];
         if (!$this->resultSet) {
             $this->resultSet = $this->statement->get_result();
-            $this->results = $this->resultSet->fetch_object();
-            // while ($obj = $this->resultSet->fetch_object()) {
-            //     $results[] = $obj;
-            // }
-            // $this->results = $results;
+            $this->results = $this->resultSet->fetch_all(MYSQLI_ASSOC);
+            while ($obj = $this->resultSet->fetch_object()) {
+                $results[] = $obj;
+            }
+            $this->results = $results;
         }
-        return $this;
-        // $this->resultSet = $this->statement->get_result();
-        // $this->results = $this->resultSet->fetch_all(MYSQLI_ASSOC);
-        // return $this->results;
-    }
-
-    public function first()
-    {
-        return $this->count() ? $this->results : "";
-        // // return $this->count();
-        // return "hello";
+        return $this->results;
     }
 
     public function count()
@@ -64,8 +54,6 @@ class MySQLiQueryBuilder extends QueryBuilder
 
         if ($this->bindings) {
             $bindings = $this->parseBindings($this->bindings);
-            print_r($bindings);
-            // $statement->bind_param(...$bindings);
             $reflectionObj = new ReflectionClass('mysqli_stmt');
             $method = $reflectionObj->getMethod('bind_param');
             $method->invokeArgs($statement, $bindings);
@@ -88,7 +76,6 @@ class MySQLiQueryBuilder extends QueryBuilder
         }
 
         $bindingTypes = $this->parseBindingTypes();
-        var_dump($bindingTypes);
         $bindings[] = &$bindingTypes;
         for ($i = 0; $i < $count; $i++) {
             $bindings[] = &$params[$i];
