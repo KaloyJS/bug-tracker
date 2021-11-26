@@ -20,15 +20,22 @@ class MySQLiQueryBuilder extends QueryBuilder
         if (!$this->resultSet) {
             $this->resultSet = $this->statement->get_result();
             $this->results = $this->resultSet->fetch_object();
-            // while ($obj = $this->resultSet->fetch_object()) {
-            //     $results[] = $obj;
+            // // while ($obj = $this->resultSet->fetch_object()) {
+            // //     $results[] = $obj;
+            // // }
+            // // $this->results = $results;
+            // if ($this->resultSet) {
+            //     while ($object = $this->resultSet->fetch_object()) {
+            //         $results[] = $object;
+            //     }
+            //     $this->results = $results;
             // }
-            // $this->results = $results;
         }
-        return $this;
+        // var_dump($results);
+        // return $this;
         // $this->resultSet = $this->statement->get_result();
         // $this->results = $this->resultSet->fetch_all(MYSQLI_ASSOC);
-        // return $this->results;
+        return $this;
     }
 
     public function first()
@@ -64,7 +71,7 @@ class MySQLiQueryBuilder extends QueryBuilder
 
         if ($this->bindings) {
             $bindings = $this->parseBindings($this->bindings);
-            print_r($bindings);
+            // print_r($bindings);
             // $statement->bind_param(...$bindings);
             $reflectionObj = new ReflectionClass('mysqli_stmt');
             $method = $reflectionObj->getMethod('bind_param');
@@ -88,7 +95,7 @@ class MySQLiQueryBuilder extends QueryBuilder
         }
 
         $bindingTypes = $this->parseBindingTypes();
-        var_dump($bindingTypes);
+        // var_dump($bindingTypes);
         $bindings[] = &$bindingTypes;
         for ($i = 0; $i < $count; $i++) {
             $bindings[] = &$params[$i];
@@ -124,5 +131,16 @@ class MySQLiQueryBuilder extends QueryBuilder
         }
 
         return $this->results = $results;
+    }
+
+    public function beginTransaction()
+    {
+        $this->connection->begin_Transaction();
+    }
+
+    public function affected()
+    {
+        $this->statement->store_result();
+        return $this->statement->affected_rows;
     }
 }

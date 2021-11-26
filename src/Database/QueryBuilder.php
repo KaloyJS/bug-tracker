@@ -22,7 +22,7 @@ abstract class QueryBuilder
     const DML_TYPE_SELECT = 'SELECT';
     const DML_TYPE_UPDATE = 'UPDATE';
     const DML_TYPE_INSERT = 'INSERT';
-    const DML_TYPE_DELETE = 'SELECT';
+    const DML_TYPE_DELETE = 'DELETE';
 
     use Query;
 
@@ -48,9 +48,7 @@ abstract class QueryBuilder
             }
         }
         $this->parseWhere([$column => $value], $operator);
-        $query = $this->prepare($this->getQuery($this->operation));
-        // var_dump($this->getQuery($this->operation));
-        $this->statement = $this->execute($query);
+
         return $this;
     }
 
@@ -81,7 +79,7 @@ abstract class QueryBuilder
         $this->statement = $this->execute($query);
 
 
-        return $this->lastInsertedId();
+        return (int)$this->lastInsertedId();
     }
 
     public function update(array $data)
@@ -109,22 +107,36 @@ abstract class QueryBuilder
 
     public function find($id)
     {
-        return $this->where('id', $id)->first();
+        return $this->where('id', $id)->runQuery()->first();
     }
 
     public function findOneBy(string $field, $value)
     {
-        return $this->where($field, $value)->first();
+        return $this->where($field, $value)->runQuery()->first();
     }
 
     public function first()
     {
-        return $this->count() ? $this->get()[0] : "";
+        // var_dump($this->get());
+        return $this->count() ? $this->get()[0] : null;
     }
 
     public function getConnection()
     {
         return $this->connection;
+    }
+
+    public function rollback(): void
+    {
+        $this->connection->rollback();
+    }
+
+    public function runQuery()
+    {
+        $query = $this->prepare($this->getQuery($this->operation));
+        // var_dump($this->getQuery($this->operation));
+        $this->statement = $this->execute($query);
+        return $this;
     }
 
     abstract public function get();
@@ -133,4 +145,6 @@ abstract class QueryBuilder
     abstract public function prepare($qry);
     abstract public function execute($statement);
     abstract public function fetchInto($statement);
+    abstract public function beginTransaction();
+    abstract public function affected();
 }
