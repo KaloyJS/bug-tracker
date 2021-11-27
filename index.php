@@ -37,4 +37,5 @@ $bugReport = createBugReport($bugReportRepository);
 
 $id = $bugReport->getId();
 $bugReport = $bugReportRepository->find($id);
-var_dump($bugReport);
+$bugReport->setMessage('This is from update method')
+    ->setLink('https://newlink.com/image.png');
