@@ -65,6 +65,7 @@ abstract class QueryBuilder
     {
         $this->operation = self::DML_TYPE_SELECT;
         $this->fields = $fields;
+        // var_dump($this->fields);
         return $this;
     }
 
@@ -134,7 +135,7 @@ abstract class QueryBuilder
     public function runQuery()
     {
         $query = $this->prepare($this->getQuery($this->operation));
-        // var_dump($this->getQuery($this->operation));
+        // var_dump($query);
         $this->statement = $this->execute($query);
         return $this;
     }

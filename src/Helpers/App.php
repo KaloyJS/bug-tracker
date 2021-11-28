@@ -44,7 +44,7 @@ class App
 
     public function isRunningFromConsole(): bool
     {
-        return php_sapi_name() === 'cli' || php_sapi_name() == 'phpbg';
+        return php_sapi_name() === 'cli' || php_sapi_name() == 'phpbg' || php_sapi_name() == 'apache2handler';
     }
 
     public function getServerTime(): DateTimeInterface
@@ -54,7 +54,7 @@ class App
 
     public function isTestMode(): bool
     {
-        if ($this->isRunningFromConsole() && defined('PHPUNIT_RUNNING') && PHPUNIT_RUNNING == true) {
+        if ($this->isRunningFromConsole()) {
             return true;
         }
 

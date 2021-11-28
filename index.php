@@ -17,25 +17,26 @@ require_once __DIR__ . '/vendor/autoload.php';
 
 require_once __DIR__ . '/src/Exception/exception.php';
 
-$queryBuilder = DBQueryBuilderFactory::make('database', 'mysqli', ['db_name' => 'bug_tracker_testing']);
+// $queryBuilder = DBQueryBuilderFactory::make('database', 'mysqli', ['db_name' => 'bug_tracker_testing']);
 
-$bugReportRepository = new BugReportRepository($queryBuilder);
+// $bugReportRepository = new BugReportRepository($queryBuilder);
 
-function createBugReport(Repository $bugReportRepository): BugReport
-{
-    $bugReport = new BugReport();
-    $bugReport->setReportType('Type 2')
-        ->setLink('https://testing-link.com')
-        ->setMessage('This is a dummy message')
-        ->setEmail('email@test.com');
+// function createBugReport(Repository $bugReportRepository): BugReport
+// {
+//     $bugReport = new BugReport();
+//     $bugReport->setReportType('Type 2')
+//         ->setLink('https://testing-link.com')
+//         ->setMessage('This is a dummy message')
+//         ->setEmail('email@test.com');
 
-    $newBugReport = $bugReportRepository->create($bugReport);
-    return $bugReportRepository->create($bugReport);
-}
+//     $newBugReport = $bugReportRepository->create($bugReport);
+//     return $bugReportRepository->create($bugReport);
+// }
 
-$bugReport = createBugReport($bugReportRepository);
+// $bugReport = createBugReport($bugReportRepository);
 
-$id = $bugReport->getId();
-$bugReport = $bugReportRepository->find($id);
-$bugReport->setMessage('This is from update method')
-    ->setLink('https://newlink.com/image.png');
+// $id = $bugReport->getId();
+// $bugReport = $bugReportRepository->find($id);
+// $bugReport->setMessage('This is from update method')
+//     ->setLink('https://newlink.com/image.png');
+echo php_sapi_name();

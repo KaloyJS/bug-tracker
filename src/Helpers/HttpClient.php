@@ -14,7 +14,7 @@ class HttpClient
         $response = curl_exec($handler);
         $statusCode = curl_getInfo($handler, CURLINFO_HTTP_CODE);
         curl_close($handler);
-
+        var_dump($response);
         return json_encode(['statusCode' => $statusCode, 'content' => $response]);
     }
 

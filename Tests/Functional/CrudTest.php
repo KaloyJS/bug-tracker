@@ -8,6 +8,7 @@ use App\Repository\BugReportRepository;
 use PHPUnit\Framework\TestCase;
 use App\Helpers\HttpClient;
 
+
 class CrudTest extends TestCase
 {
     /** @var QueryBuilder $querybuilder */
@@ -18,6 +19,7 @@ class CrudTest extends TestCase
 
     public function setUp(): void
     {
+        // define('PHPUNIT_RUNNING2', true);
         $this->queryBuilder = DBQueryBuilderFactory::make('database', 'pdo', ['db_name' => 'bug_tracker_testing']);
         // $this->queryBuilder->beginTransaction();
         $this->repository = new BugReportRepository($this->queryBuilder);
@@ -64,8 +66,9 @@ class CrudTest extends TestCase
         self::assertEquals(200, $response->statusCode);
 
         /** @var BugReport $bugReport */
-        $result = $this->repository->find($bugReport->getId());
-
+        $bugReport = $this->repository->find($bugReport->getId());
+        // var_dump($result);
+        // exit();
 
         self::assertInstanceOf(BugReport::class, $bugReport);
         self::assertSame("the video on PHP OOP has audio issues, please check and fix it", $bugReport->getMessage());
@@ -76,6 +79,7 @@ class CrudTest extends TestCase
     /** @depends testItCanUpdateReportUsingPostRequest */
     public function testItCanDeleteReportUsingPostRequest(BugReport $bugReport)
     {
+
         $postData = [
             'delete' => true,
             "reportId" => $bugReport->getId(),
@@ -87,7 +91,7 @@ class CrudTest extends TestCase
 
         /** @var BugReport $bugReport */
         $result = $this->repository->find($bugReport->getId());
-        self::assertNull($bugReport);
+        self::assertNull($result);
     }
 
 
@@ -104,7 +108,7 @@ class CrudTest extends TestCase
 
     public function tearDown(): void
     {
-        $this->queryBuilder->getConnection()->rollback();
+        // $this->queryBuilder->getConnection()->rollback();
         parent::tearDown();
         // 
     }

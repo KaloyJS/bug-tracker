@@ -9,6 +9,7 @@ use App\Database\QueryBuilder;
 use App\Exception\BadRequestException;
 use App\Helpers\DBQueryBuilderFactory;
 use App\Repository\BugReportRepository;
+use App\Helpers\App;
 
 if (isset($_POST['add'])) {
     $reportType = $_POST['reportType'];
@@ -23,6 +24,7 @@ if (isset($_POST['add'])) {
     $bugReport->setLink($link);
 
     $logger = new Logger();
+
     try {
         /** @var QueryBuilder $queryBuilder */
         $queryBuilder = DBQueryBuilderFactory::make('database', 'pdo', ['db_name' => 'bug_tracker_testing']);
@@ -39,5 +41,5 @@ if (isset($_POST['add'])) {
         'new bug report created',
         ['id' => $newReport->getId(), 'type' => $newReport->getReportType()]
     );
-    $bugReports = $repository->findAll($newReport->getId());
+    // $bugReports = $repository->findAll($newReport->getId());
 }

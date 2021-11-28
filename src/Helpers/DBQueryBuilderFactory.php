@@ -8,6 +8,7 @@ use App\Database\PDOConnection;
 use App\Database\PDOQueryBuilder;
 use App\Database\QueryBuilder;
 use App\Exception\DatabaseConnectionException;
+use App\Helpers\App;
 
 class DBQueryBuilderFactory
 {
@@ -35,5 +36,14 @@ class DBQueryBuilderFactory
                 );
                 break;
         }
+    }
+
+    public static function get(): QueryBuilder
+    {
+        $application = new App();
+        if ($application->isTestMode()) {
+            return self::make('database', 'pdo', ['db_name' => 'bug_tracker_testing']);
+        }
+        return self::make();
     }
 }

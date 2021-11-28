@@ -6,6 +6,7 @@
         convertNoticesToExceptions = "true"
         convertWarningsToExceptions = "true"
         stopOnFailure="false" >
+        
         <testsuites>
             <testsuite name="Units">
             <directory>Tests/Units</directory>
@@ -16,7 +17,9 @@
         </testsuites>
 
         <php>
-            <const name="PHPUNIT_RUNNING" value="true" />
+            <const name="PHPUNIT_RUNNING" value="true" />            
+            <const name="FOO" value="bar"/>
         </php>
+        
         
     </phpunit>
