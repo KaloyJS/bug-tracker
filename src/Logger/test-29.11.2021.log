@@ -1,0 +1,20 @@
+2021-11-29 18:52:27 - Level: info - Message: new bug report created - Context: {"id":767,"type":"Audio"}
+2021-11-29 18:52:28 - Level: info - Message: bug report updated - Context: {"id":767,"link":"Audio","message":"the video on PHP OOP has audio issues, please check and fix it"}
+2021-11-29 18:52:28 - Level: info - Message: bug report deleted - Context: {"id":"767"}
+2021-11-29 18:53:48 - Level: info - Message: new bug report created - Context: {"id":784,"type":"Audio"}
+2021-11-29 18:53:48 - Level: info - Message: bug report updated - Context: {"id":784,"link":"Audio","message":"the video on PHP OOP has audio issues, please check and fix it"}
+2021-11-29 18:53:49 - Level: info - Message: bug report deleted - Context: {"id":"784"}
+2021-11-29 19:00:57 - Level: info - Message: new bug report created - Context: {"id":801,"type":"Audio"}
+2021-11-29 19:00:57 - Level: info - Message: bug report updated - Context: {"id":801,"link":"Audio","message":"the video on PHP OOP has audio issues, please check and fix it"}
+2021-11-29 19:00:57 - Level: info - Message: bug report deleted - Context: {"id":"801"}
+2021-11-29 20:45:37 - Level: info - Message: new bug report created - Context: {"id":4,"type":"others"}
+2021-11-29 20:45:51 - Level: info - Message: new bug report created - Context: {"id":5,"type":"video player"}
+2021-11-29 20:46:03 - Level: info - Message: bug report updated - Context: {"id":1,"link":"video player","message":"Video is fixed"}
+2021-11-29 20:47:14 - Level: info - Message: new bug report created - Context: {"id":6,"type":"audio"}
+2021-11-29 20:49:26 - Level: info - Message: bug report deleted - Context: {"id":"1"}
+2021-11-29 20:51:10 - Level: info - Message: new bug report created - Context: {"id":7,"type":"video player"}
+2021-11-29 20:51:18 - Level: info - Message: new bug report created - Context: {"id":8,"type":"video player"}
+2021-11-29 20:53:00 - Level: info - Message: new bug report created - Context: {"id":9,"type":"others"}
+2021-11-29 20:53:04 - Level: info - Message: bug report deleted - Context: {"id":"2"}
+2021-11-29 20:53:07 - Level: info - Message: bug report deleted - Context: {"id":"9"}
+2021-11-29 20:58:40 - Level: info - Message: new bug report created - Context: {"id":10,"type":"Audio"}

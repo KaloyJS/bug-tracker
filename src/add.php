@@ -2,7 +2,7 @@
 require_once __DIR__ . '/../vendor/autoload.php';
 
 
-use Throwable;
+
 use App\Logger\Logger;
 use App\Entity\BugReport;
 use App\Database\QueryBuilder;
@@ -27,12 +27,12 @@ if (isset($_POST['add'])) {
 
     try {
         /** @var QueryBuilder $queryBuilder */
-        $queryBuilder = DBQueryBuilderFactory::make('database', 'pdo', ['db_name' => 'bug_tracker_testing']);
+        $queryBuilder = DBQueryBuilderFactory::make('database', 'pdo',);
         /** @var BugReportRepository $repository */
         $repository = new BugReportRepository($queryBuilder);
         /** @var BugReport $newReport */
         $newReport = $repository->create($bugReport);
-    } catch (Throwable $th) {
+    } catch (\Throwable $th) {
         $logger->critical($th->getMessage(), $_POST);
         throw new BadRequestException($th->getMessage(), [$th], 400);
     }
@@ -41,5 +41,5 @@ if (isset($_POST['add'])) {
         'new bug report created',
         ['id' => $newReport->getId(), 'type' => $newReport->getReportType()]
     );
-    // $bugReports = $repository->findAll($newReport->getId());
+    $bugReports = $repository->findAll();
 }
